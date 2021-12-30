@@ -82,7 +82,7 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
         A list of the banks willing to underwrite the loan.
 
     """
-
+###
     # Calculate the monthly debt ratio
     monthly_debt_ratio = calculate_monthly_debt_ratio(debt, income)
     print(f"The monthly debt to income ratio is {monthly_debt_ratio:.02f}")
