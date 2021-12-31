@@ -10,6 +10,7 @@ import sys
 import fire
 import questionary
 from pathlib import Path
+import csv
 
 from qualifier.utils.fileio import load_csv
 
@@ -82,7 +83,7 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
         A list of the banks willing to underwrite the loan.
 
     """
-###
+
     # Calculate the monthly debt ratio
     monthly_debt_ratio = calculate_monthly_debt_ratio(debt, income)
     print(f"The monthly debt to income ratio is {monthly_debt_ratio:.02f}")
@@ -102,6 +103,8 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
     return bank_data_filtered
 
 
+
+
 def save_qualifying_loans(qualifying_loans):
     """Saves the qualifying loans to a CSV file.
 
@@ -110,6 +113,26 @@ def save_qualifying_loans(qualifying_loans):
     """
     # @TODO: Complete the usability dialog for savings the CSV Files.
     # YOUR CODE HERE!
+    # if no qualifying loans have been found, then prompt user to exit
+    if not qualifying_loans: 
+        sys.exit("No loans have been found. You may exit the application.") 
+    
+    saveFile = questionary.confirm("Would you like to save the qualifying loans?").ask()
+
+    # if qualifying loans have been found, and user wants to save file as CSV
+    if saveFile:
+        save_csv(qualifying_loans)
+    else:
+        sys.exit("You have successfully exited the application.")
+
+
+def save_csv(qualifying_loans):
+    header = ["Lender","Max Loan Amount", "Max LTV", "Max DTI", "Min Credit Score","Interest Rate"]
+    csv_path = Path("./data/qualifying_loans.csv")
+    with open(csv_path, "w") as csvfile: 
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(header)
+        csvwriter.writerows(qualifying_loans)
 
 
 def run():
