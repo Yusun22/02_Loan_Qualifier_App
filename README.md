@@ -31,7 +31,7 @@ To use the loan qualifier application simply clone the repository and run the **
 
 Key financial calculators that were used to determine if the user is qualified for any loans:
 
-![Loan Qualifier CLI](Desktop/financial_calculators.png)
+![Loan Qualifier CLI](/Users/yusun/Desktop/Challenges/02_Loan_Qualifier_App/Financial_calculators.png)
 
 If the user is not qualified for any loans, the application will notify the user that
 
